@@ -1,0 +1,559 @@
+from tkinter import *
+from tkinter.ttk import Progressbar
+import pyttsx3
+from customtkinter import *
+from PIL import Image, ImageTk
+
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+# print(voices[1].id)
+engine.setProperty('voice', voices[0].id)
+
+def speak(audio):#Audio function
+    engine.say(audio)
+    engine.runAndWait()
+
+
+
+questions= [
+                "Who is the author of 'War and Peace'?", 
+                "Who is the first woman PM of India?", 
+                "Who is the first field marshal of India?", 
+                "Full Form of CCT using in camera?", 
+                "Name an animal who dosen't have a blood system?",
+                "Which player has record for 10 wickets in one match ?",
+                "Who prepared the architechtural design of Chandigarh?",
+                "Where will be the 2014 Winter Olympics held?",
+                "When was the national Voters Day?",
+                "According to Indian Mythology, Kans, the brother of Devaki was the ruler of which city?",
+                "The first ever full-length Gujarati movie is based on the life of which of the following personalities?",
+                "Which colonial power ended its involvement in India by selling the rights to Nicobar Island to Britishers on October 18, 1868?",
+                "Which player won the title of Scottish Junior Open Squash Under-19",
+                "Recently, which oceanographic research vessel of the Indian Navy has embarked on the Sagar Maitri Mission-4 to Oman?",
+                "What is the world’s shortest river?",
+                "Name the city that is located in two countries.",
+            ]
+
+optionA= [
+            "W Shakespeare", 
+            "Mayawati", 
+            "Sam Manekshaw", 
+            "Cricket cutting tracker", 
+            "Star Fish", 
+            "Anil Kumble", 
+            "Otto Han",
+            "Vancouver",
+            "January 15",
+            "Mathura",
+            "Narsi Mehta",
+            "Belgium",
+            "Kiran Deshmukh",
+            "INS Makar",
+            "Kura River",
+            "Kabul",
+        ]
+optionB= [
+            "Charles Dickens",
+            "Indra Gandhi",
+            "Kodandera M. Cariappa",
+            "Close Circuit Television",
+            "Crocodile",
+            "Wasim Akram",
+            "Le Criston",
+            "Ladakh",
+            "January 9",
+            "Dwarka",
+            "Premchand Bhatt",
+            "France",
+            "Geetika Mehta",
+            "INS Sandhayak",
+            "Roe River",
+            "Hyderabad",
+        ]
+optionC= [
+            "Leo Tolstoy",
+            "Sonia Gandhi",
+            "VK Singh",
+            "Coal Cutting Cools",
+            "Snake",
+            "Shane Warne",
+            "Le Corbusier",
+            "Reykjavik",
+            "January 25",
+            "Indraprastha",
+            "Mahatma Gandhi",
+            "Italy",
+            "Ajay Rathor",
+            "INS Sagardhwani",
+            "Yalu River",
+            "Istanbul",
+        ]
+optionD= [
+            "Sakshi Shalini",
+            "Mamta Banerjee",
+            "PV Naik",
+            "Cool Crazy Traffic",
+            "Jelly Fish",
+            "Carl Hooper",
+            "Corticoid",
+            "Sochi",
+            "January 30",
+            "Ujjain",
+            "Mira Bai",
+            "Denmark",
+            "Anahat Singh",
+            "INS Dhruv",
+            "Ganga River",
+            "Samara",
+        ]
+correctAnswer= [
+                "Leo Tolstoy",
+                "Indra Gandhi",
+                "Sam Manekshaw",
+                "Close Circuit Television",
+                "Jelly Fish",
+                "Anil Kumble",
+                "Le Corbusier",
+                "Sochi",
+                "January 15",
+                "Mathura",
+                "Narsi Mehta",
+                "Denmark",
+                "Anahat Singh",
+                "INS Sagardhwani",
+                "Roe River",
+                "Istanbul",
+                ]
+
+def KBCgame():
+    app.destroy()
+    def gamefunc(event):
+        phonebut.place_forget()
+
+        progressbarA.place_forget()
+        progressbarB.place_forget()
+        progressbarC.place_forget()
+        progressbarD.place_forget()
+
+        progressbarAlab.place_forget()
+        progressbarBlab.place_forget()
+        progressbarClab.place_forget()
+        progressbarDlab.place_forget()
+
+        o= event.widget
+        value= o['text']
+        i= 0
+        for i in range(16):
+            if value == correctAnswer[i]:
+                if value== correctAnswer[15]:
+                    def playagain():
+                        root2.destroy()
+                        button50x50.config(image= image50x50, state= NORMAL)
+                        audiencePolebut.config(image= audiencePoleimg, state= NORMAL)
+                        phoneafriendbut.config(image= phoneafriendimg, state= NORMAL)
+                        questionArea.delete(1.0, END)
+                        questionArea.insert(END, questions[0])
+
+                        ansA1.config(text= optionA[0])
+                        ansB1.config(text= optionB[0])
+                        ansC1.config(text= optionC[0])
+                        ansD1.config(text= optionD[0])
+
+                        amountimgs.config(file= f'KBCProgram/Picture0.png')
+
+                    def close():
+                        root2.destroy()
+                        root.destroy()
+
+                    root2= Toplevel()
+                    root2.overrideredirect(True)
+                    root2.geometry('500x450+700+300')
+                    root2.minsize(500, 400)
+                    root2.maxsize(500, 400)
+                    root2.configure(bg= "#60A819")
+
+                    logolable= Label(root2, image= logoimg, bd= 0, background= '#60A819')
+                    logolable.pack(pady=30)
+
+                    Winlable= Label(root2, text= 'You Won', bg= '#60A819', fg= 'yellow', bd= 0, font=
+                                    ('sedan', 40, 'bold'))
+                    Winlable.pack()
+
+                    Playagainbut= Button(root2, text= 'Play Again', font= ('sedan', 20, 'bold'), bd= 0, background= '#60A819', fg= 'yellow', activebackground= '#60A819', activeforeground= 'yellow', command= playagain)
+                    Playagainbut.pack()
+
+                    closebut= Button(root2, text= 'Close', font= ('sedan', 20, 'bold'), bd= 0, background= '#60A819', fg= 'yellow', activebackground= '#60A819', activeforeground= 'yellow', command= close)
+                    closebut.pack()
+
+                    happyimg= PhotoImage(file= 'KBCProgram/happy.png')
+                    happylab= Label(root2, image= happyimg, bg= '#60A819')
+                    happylab.place(x= 30, y= 280)
+
+                    happylab1= Label(root2, image= happyimg, bg= '#60A819')
+                    happylab1.place(x= 400, y= 280)
+
+                    root2.mainloop()
+
+                questionArea.delete(1.0, END)
+                questionArea.insert(END, questions[i+1])
+                ansA1.config(text= optionA[i+1])
+                ansB1.config(text= optionB[i+1])
+                ansC1.config(text= optionC[i+1])
+                ansD1.config(text= optionD[i+1])
+
+                amountimgs.config(file= f'KBCProgram/Picture{i+1}.png')
+
+            if value not in correctAnswer:
+                def tryagain():
+                    root1.destroy()
+                    button50x50.config(image= image50x50, state= NORMAL)
+                    audiencePolebut.config(image= audiencePoleimg, state= NORMAL)
+                    phoneafriendbut.config(image= phoneafriendimg, state= NORMAL)
+                    questionArea.delete(1.0, END)
+                    questionArea.insert(END, questions[0])
+
+                    ansA1.config(text= optionA[0])
+                    ansB1.config(text= optionB[0])
+                    ansC1.config(text= optionC[0])
+                    ansD1.config(text= optionD[0])
+
+                    amountimgs.config(file= f'KBCProgram/Picture0.png')
+
+                def close():
+                    root1.destroy()
+                    root.destroy()
+
+                root1= Toplevel()
+                root1.overrideredirect(True)
+                root1.geometry('500x450+700+300')
+                root1.minsize(500, 400)
+                root1.maxsize(500, 400)
+                root1.configure(bg= "red")
+
+                logolable= Label(root1, image= logoimg, bd= 0, background= 'red')
+                logolable.pack(pady=30)
+
+                Loselable= Label(root1, text= 'You Lose', bg= 'red', fg= 'yellow', bd= 0, font=('sedan', 40, 'bold'))
+                Loselable.pack()
+
+                tryagainbut= Button(root1, text= 'Try Again', font= ('sedan', 20, 'bold'), bd= 0, background= 'red', fg= 'yellow', activebackground= 'red', activeforeground= 'yellow', command= tryagain)
+                tryagainbut.pack()
+
+                closebut= Button(root1, text= 'Home', font= ('sedan', 20, 'bold'), bd= 0, background= 'red', fg= 'yellow', activebackground= 'red', activeforeground= 'yellow', command= close)
+                closebut.pack()
+
+                sadimg= PhotoImage(file= 'KBCProgram/sad.png')
+                sadlab= Label(root1, image= sadimg, bg= 'red')
+                sadlab.place(x= 30, y= 280)
+
+                sadlab1= Label(root1, image= sadimg, bg= 'red')
+                sadlab1.place(x= 400, y= 280)
+
+                root1.mainloop()
+                break
+
+    def lifeline50x50():
+        button50x50.config(image= image50x50X, state= DISABLED)
+
+        if questionArea.get(1.0, 'end-1c') == questions[0]:
+            ansA1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[1]:
+            ansA1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[2]:
+            ansC1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[3]:
+            ansC1.config(text= '')
+            ansB1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[4]:
+            ansB1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[5]:
+            ansB1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[6]:
+            ansA1.config(text= '')
+            ansB1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[7]:
+            ansA1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[8]:
+            ansC1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[9]:
+            ansB1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[10]:
+            ansB1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[11]:
+            ansA1.config(text= '')
+            ansB1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[12]:
+            ansA1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[13]:
+            ansA1.config(text= '')
+            ansD1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[14]:
+            ansA1.config(text= '')
+            ansC1.config(text='')
+        if questionArea.get(1.0, 'end-1c') == questions[15]:
+            ansD1.config(text= '')
+            ansB1.config(text='')
+        
+    def auidencePoleLifeLine():
+        audiencePolebut.config(image= audiencePoleimgX, state= DISABLED)
+        progressbarA.place(x= 580, y= 190)
+        progressbarB.place(x= 620, y= 190)
+        progressbarC.place(x= 660, y= 190)
+        progressbarD.place(x= 700, y= 190)
+
+        progressbarAlab.place(x= 580, y= 290)
+        progressbarBlab.place(x= 620, y= 290)
+        progressbarClab.place(x= 660, y= 290)
+        progressbarDlab.place(x= 700, y= 290)
+
+        if questionArea.get(1.0, 'end-1c') == questions[0]:
+            progressbarA.config(value= 10)
+            progressbarB.config(value= 35)
+            progressbarC.config(value= 50)
+            progressbarD.config(value= 5)
+
+        if questionArea.get(1.0, 'end-1c') == questions[1]:
+            progressbarA.config(value= 10)
+            progressbarB.config(value= 75)
+            progressbarC.config(value= 5)
+            progressbarD.config(value= 10)
+
+        if questionArea.get(1.0, 'end-1c') == questions[2]:
+            progressbarA.config(value= 55)
+            progressbarB.config(value= 20)
+            progressbarC.config(value= 15)
+            progressbarD.config(value= 10)
+
+        if questionArea.get(1.0, 'end-1c') == questions[3]:
+            progressbarA.config(value= 20)
+            progressbarB.config(value= 65)
+            progressbarC.config(value= 10)
+            progressbarD.config(value= 5)
+
+        if questionArea.get(1.0, 'end-1c') == questions[4]:
+            progressbarA.config(value= 10)
+            progressbarB.config(value= 5)
+            progressbarC.config(value= 5)
+            progressbarD.config(value= 80)
+
+        if questionArea.get(1.0, 'end-1c') == questions[5]:
+            progressbarA.config(value= 40)
+            progressbarB.config(value= 20)
+            progressbarC.config(value= 25)
+            progressbarD.config(value= 15)
+
+        if questionArea.get(1.0, 'end-1c') == questions[6]:
+            progressbarA.config(value= 30)
+            progressbarB.config(value= 20)
+            progressbarC.config(value= 35)
+            progressbarD.config(value= 15)
+
+        if questionArea.get(1.0, 'end-1c') == questions[7]:
+            progressbarA.config(value= 20)
+            progressbarB.config(value= 15)
+            progressbarC.config(value= 20)
+            progressbarD.config(value= 45)
+
+        if questionArea.get(1.0, 'end-1c') == questions[8]:
+            progressbarA.config(value= 70)
+            progressbarB.config(value= 5)
+            progressbarC.config(value= 12)
+            progressbarD.config(value= 13)
+
+        if questionArea.get(1.0, 'end-1c') == questions[9]:
+            progressbarA.config(value= 90)
+            progressbarB.config(value= 0)
+            progressbarC.config(value= 5)
+            progressbarD.config(value= 5)
+
+        if questionArea.get(1.0, 'end-1c') == questions[10]:
+            progressbarA.config(value= 55)
+            progressbarB.config(value= 15)
+            progressbarC.config(value= 25)
+            progressbarD.config(value= 5)
+
+        if questionArea.get(1.0, 'end-1c') == questions[11]:
+            progressbarA.config(value= 25)
+            progressbarB.config(value= 15)
+            progressbarC.config(value= 5)
+            progressbarD.config(value= 55)
+
+        if questionArea.get(1.0, 'end-1c') == questions[12]:
+            progressbarA.config(value= 10)
+            progressbarB.config(value= 10)
+            progressbarC.config(value= 20)
+            progressbarD.config(value= 60)
+
+        if questionArea.get(1.0, 'end-1c') == questions[13]:
+            progressbarA.config(value= 10)
+            progressbarB.config(value= 30)
+            progressbarC.config(value= 40)
+            progressbarD.config(value= 20)
+
+        if questionArea.get(1.0, 'end-1c') == questions[14]:
+            progressbarA.config(value= 15)
+            progressbarB.config(value= 45)
+            progressbarC.config(value= 10)
+            progressbarD.config(value= 30)
+
+        if questionArea.get(1.0, 'end-1c') == questions[15]:
+            progressbarA.config(value= 20)
+            progressbarB.config(value= 0)
+            progressbarC.config(value= 50)
+            progressbarD.config(value= 30)
+
+    def phoneclick():
+        phoneafriendbut.config(image= phoneafriendimgX, state= DISABLED)
+        phonebut.place(x= 70, y= 260)
+
+    def phonelifeline():
+            for i in range(len(questions)):
+                if questionArea.get(1.0, 'end-1c') == questions[i]:
+                    speak(f'The correct answer is {correctAnswer[i]}')
+        
+
+
+    root = Tk()
+    root.iconbitmap('KBCProgram/Logo.ico')
+    root.geometry("1250x652+350+200")
+    root.minsize(625, 326)
+    root.configure(bg= "white")
+
+    root.title("Kaun Banega Crorepati")
+
+    leftframe= Frame(root, bg= 'white', padx= 90)
+    leftframe.grid(row= 0, column= 0)
+
+    rightframe= Frame(root, bg= 'white', padx= 50, pady= 25)
+    rightframe.grid(row= 0, column= 1)
+
+    topleftframe= Frame(leftframe, bg= 'white', pady= 15)
+    topleftframe.grid(row= 0, column= 0)
+
+    centerleftframe= Frame(leftframe, bg= 'white', pady= 15)
+    centerleftframe.grid(row= 1, column= 0)
+
+    bottomleftframe= Frame(leftframe, bg= 'white')
+    bottomleftframe.grid(row= 2, column= 0)
+
+    image50x50= PhotoImage(file='KBCProgram/50-50.png')
+    image50x50X= PhotoImage(file='KBCProgram/50-50-X.png')
+    button50x50= Button(topleftframe, image=image50x50, bg= "white", border= 0, activebackground= "white", cursor= 'hand2', width= 180, height= 80, command= lifeline50x50)
+    button50x50.grid(row= 0, column=0)
+
+    audiencePoleimg= PhotoImage(file='KBCProgram/audiencePole.png')
+    audiencePoleimgX= PhotoImage(file='KBCProgram/audiencePoleX.png')
+    audiencePolebut= Button(topleftframe, image=audiencePoleimg, bg= "white", border= 0, activebackground= "white", cursor= 'hand2', width= 180, height= 80, command= auidencePoleLifeLine)
+    audiencePolebut.grid(row= 0, column=1)
+
+    phoneafriendimg= PhotoImage(file='KBCProgram/phoneaFriend.png')
+    phoneafriendimgX= PhotoImage(file='KBCProgram/phoneaFriendX.png')
+    phoneafriendbut= Button(topleftframe, image=phoneafriendimg, bg= "white", border= 0, activebackground= "white", cursor= 'hand2', width= 180, height= 80, command= phoneclick)
+    phoneafriendbut.grid(row= 0, column=2)
+
+    phoneimg= PhotoImage(file= 'KBCProgram/phone.png')
+    phonebut= Button(root, image= phoneimg, bg= "white", border= 0, activebackground= "white", cursor= 'hand2', command= phonelifeline)
+
+    logoimg= PhotoImage(file='KBCProgram/Logo.png')
+    logo= Label(centerleftframe, image=logoimg, bg= "white", width= 300,  height= 200)
+    logo.grid(row= 0, column=0)
+
+    amountimgs= PhotoImage(file="KBCProgram/Picture0.png")
+    amountlogo0= Label(rightframe, image= amountimgs)
+    amountlogo0.grid(row= 0, column= 0)
+
+    queslayoutimg= PhotoImage(file= 'KBCProgram/lay.png')
+    queslayout= Label(bottomleftframe, image= queslayoutimg, bg= 'white')
+    queslayout.grid(row= 0, column= 0)
+
+    questionArea= Text(bottomleftframe, font= ('rose', 12, 'bold'), width= 50, height= 3, wrap= "word", border= 0)
+    questionArea.insert(END, questions[0])
+    questionArea.place(x=70, y=10)
+    
+    optionA1= Label(bottomleftframe, text='A: ', font= ('arial', 12, 'bold'), bg= 'white')
+    optionA1.place(x= 50, y= 105)
+
+    ansA1= Button(bottomleftframe, text=optionA[0], font= ('sedan', 10, 'bold'), bd= 0, cursor= 'hand2', bg= 'white')
+    ansA1.place(x= 90, y= 105)
+
+    optionB1= Label(bottomleftframe, text='B: ', font= ('arial', 12, 'bold'), bg= 'white')
+    optionB1.place(x= 330, y= 105)
+
+    ansB1= Button(bottomleftframe, text=optionB[0], font= ('sedan',  10, 'bold'), bd= 0, cursor= 'hand2', bg= 'white')
+    ansB1.place(x= 370, y= 105)
+
+    optionC1= Label(bottomleftframe, text='C: ', font= ('arial', 12, 'bold'), bg= 'white')
+    optionC1.place(x= 50, y= 190)
+
+    ansC1= Button(bottomleftframe, text=optionC[0], font= ('sedan', 10, 'bold'), bd= 0, cursor= 'hand2', bg= 'white')
+    ansC1.place(x= 90, y= 190)
+
+    optionD1= Label(bottomleftframe, text='D: ', font= ('arial', 12, 'bold'), bg= 'white')
+    optionD1.place(x= 330, y= 190)
+
+    ansD1= Button(bottomleftframe, text=optionD[0], font= ('sedan', 10, 'bold'), bd= 0, cursor= 'hand2', bg= 'white')
+    ansD1.place(x= 370, y= 190)
+
+    ansA1.bind('<Button-1>', gamefunc)
+    ansB1.bind('<Button-1>', gamefunc)
+    ansC1.bind('<Button-1>', gamefunc)
+    ansD1.bind('<Button-1>', gamefunc)
+
+    progressbarA= Progressbar(root, orient= VERTICAL, length= 100)
+    progressbarB= Progressbar(root, orient= VERTICAL, length= 100)
+    progressbarC= Progressbar(root, orient= VERTICAL, length= 100)
+    progressbarD= Progressbar(root, orient= VERTICAL, length= 100)
+
+    progressbarAlab= Label(root, text= 'A', font=('sedan', 20, 'bold'))
+    progressbarBlab= Label(root, text= 'B', font=('sedan', 20, 'bold'))
+    progressbarClab= Label(root, text= 'C', font=('sedan', 20, 'bold'))
+    progressbarDlab= Label(root, text= 'D', font=('sedan', 20, 'bold'))
+
+
+
+    root.mainloop()
+
+def quit():
+    app.destroy()
+
+set_appearance_mode('dark')
+set_default_color_theme('blue')
+app = CTk()
+app.geometry('785x440+700+300')
+app.minsize(600, 440)
+app.title('KBC- Home')
+
+bgimg= ImageTk.PhotoImage(Image.open('KBCProgram/pic.png'))
+bgimglable= CTkLabel(master=app, image= bgimg)
+bgimglable.place(relx=0.5, rely=0.5, anchor= CENTER)
+
+homeframe= CTkFrame(master= bgimglable, width= 320, height= 360, fg_color= 'white')
+homeframe.place(relx=0.5, rely=0.5, anchor= CENTER)
+
+kbcimg= ImageTk.PhotoImage(Image.open('KBCProgram/logo.png'))
+kbclable= CTkLabel(master=homeframe, image= kbcimg, bg_color= 'white')
+kbclable.place(x= 70, y= 10)
+
+playbut= CTkButton(master=homeframe, text= "Play", corner_radius= 10, font= ('Courier-Bold', 20), border_width=0, command= KBCgame)
+playbut.place(x= 90, y= 220)
+
+quitbut= CTkButton(master=homeframe, text= "Quit", corner_radius= 10, font= ('Courier-Bold', 20), border_width=0, command= quit)
+quitbut.place(x= 90, y= 270)
+
+
+
+
+
+
+
+app.mainloop()
